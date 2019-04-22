@@ -4,6 +4,7 @@
   "description": "This is a service that offer a solution for phone-words problem",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "mocha tests/*",
     "lint": "eslint ."

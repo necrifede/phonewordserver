@@ -3,13 +3,25 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('./config')
+const phonenumber = require('./phonewords')
 const app = express()
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.get('/phonenumber', (req, res) => {
-  return res.status(200).send({ message: 'working...'})
+  try {
+    if(!req.query.value) {
+      return res.status(400).send({ message: 'value is required!'})  
+    }
+    if(isNaN(req.query.value)) {
+      return res.status(400).send({ message: `Invalid value '${req.query.value}'`})  
+    }
+
+    return res.status(200).send({ result: phonenumber(Number(req.query.value))})
+  } catch (error) {
+    return res.status(500).send({ message: `Evaluating '${req.query.value}' has error: ${error}`})
+  }
 })
 
 app.listen(config.port, () => {
