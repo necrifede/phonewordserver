@@ -30,12 +30,14 @@ function printWordsUtil(number, curr_digit, output, n){
 	}
 }
 
-function phonedigit(number) {
-	const arr_number = `${number}`.split('').map(n => Number(n))
+function phonewords(number) {
+	if(isNaN(number) || number === null || !Number.isInteger(Number(number))){
+		return []
+	}
+	const arr_number = `${Number(number)}`.split('').map(n => Number(n))
 	result.length = 0
 	printWordsUtil(arr_number, 0, Array(arr_number.length), arr_number.length)
-	console.log(result)
 	return result 
 }
 
-module.exports = phonedigit
+module.exports = phonewords
